@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_layout_navigations",
+  "info": {
+    "displayName": "Navigation"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "link": {
+      "displayName": "Link",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.link"
+    }
+  }
+}

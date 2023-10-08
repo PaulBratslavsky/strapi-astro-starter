@@ -1,0 +1,32 @@
+---
+import type Page from "../../interfaces/page";
+import fetchApi from "../../lib/strapi";
+
+import Layout from "../../layouts/Default.astro";
+
+export async function getStaticPaths() {
+  const pages = await fetchApi<Page[]>({
+    endpoint: "pages?populate=*",
+    wrappedByKey: "data",
+  });
+
+  function createStaticPaths(pages: Page[]) {
+    const data = pages.map((page) => ({
+      params: { slug: page.attributes.slug },
+      props: page,
+    }));
+
+    return data;
+  }
+
+  return createStaticPaths(pages);
+}
+
+type Props = Page;
+const page = Astro.props;
+---
+
+<Layout title={page.attributes.title}>
+  <h1>Dynamic Pages</h1>
+  <div>{page.attributes.title}</div>
+</Layout>

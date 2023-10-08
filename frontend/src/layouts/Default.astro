@@ -1,0 +1,35 @@
+---
+import type Global from "../interfaces/global";
+import fetchApi from "../lib/strapi";
+
+const global = await fetchApi<Global>({
+  endpoint: "global?populate[topNav][populate][link][populate]=true",
+  wrappedByKey: "data",
+});
+
+interface Props { title: string }
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <h1>Logo</h1>
+			<nav>
+				{global.attributes.topNav.link.map((link) => (
+					<a href={link.href}>{link.text}</a>
+				))}
+			</nav>
+    </header>
+    <slot />
+  </body>
+</html>

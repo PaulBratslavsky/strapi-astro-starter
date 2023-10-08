@@ -1,0 +1,15 @@
+---
+import type Article from "../interfaces/articles";
+import Layout from "../layouts/Default.astro";
+
+import fetchApi from "../lib/strapi";
+
+const articles = await fetchApi<Article[]>({
+  endpoint: "articles?populate=image",
+  wrappedByKey: "data",
+});
+---
+
+<Layout title="Home Page">
+  <h1>Home Page</h1>
+</Layout>
