@@ -3,6 +3,7 @@ import type Page from "../../interfaces/page";
 import fetchApi from "../../lib/strapi";
 
 import Layout from "../../layouts/Default.astro";
+import Hero from "../../components/Hero.astro";
 
 export async function getStaticPaths() {
   const pages = await fetchApi<Page[]>({

@@ -2,6 +2,12 @@
 import type Article from "../interfaces/articles";
 import Layout from "../layouts/Default.astro";
 
+import Hero from "../components/Hero.astro";
+import Showcase from "../components/Showcase.astro";
+import Testimonials from "../components/Testimonials.astro";
+import LatestPosts from "../components/LatestPosts.astro";
+import CTA from "../components/CTA.astro";
+
 import fetchApi from "../lib/strapi";
 
 const articles = await fetchApi<Article[]>({
@@ -11,5 +17,9 @@ const articles = await fetchApi<Article[]>({
 ---
 
 <Layout title="Home Page">
-  <h1>Home Page</h1>
+  <Hero />
+  <Showcase />
+  <Testimonials />
+  <CTA />
+  <LatestPosts />
 </Layout>
