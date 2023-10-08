@@ -6,11 +6,14 @@ import TopNav from "../components/TopNav.astro";
 import Footer from "../components/Footer.astro";
 
 const global = await fetchApi<Global>({
-  endpoint: "global?populate[topNav][populate][logoImage][fields][0]=url&populate[topNav][populate][link][populate]=true",
+  endpoint:
+    "global?populate[topNav][populate][logoImage][fields][0]=url&populate[topNav][populate][link][populate]=true",
   wrappedByKey: "data",
 });
 
-interface Props { title: string }
+interface Props {
+  title: string;
+}
 const { title } = Astro.props;
 ---
 
@@ -24,12 +27,9 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body>
-    <header class="bg-slate-100">
-			<TopNav nav={global.attributes.topNav} />
-    </header>
-    <main class="container mx-auto py-8"><slot /></main>
-		<Footer />
+  <body class="overflow-x-hidden">
+    <TopNav nav={global.attributes.topNav} />
+    <slot />
+    <Footer />
   </body>
 </html>
-
