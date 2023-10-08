@@ -1,0 +1,107 @@
+---
+import type { TopNav } from "../interfaces/global.ts";
+import { getStrapiMedia } from "../lib/api-helpers";
+interface Props {
+  nav: TopNav;
+}
+
+const { nav } = Astro.props;
+const logoImage = getStrapiMedia(nav.logoImage.data.attributes.url);
+console.log(logoImage);
+---
+
+<section class="py-6">
+  <div class="container px-4 mx-auto">
+    <nav>
+      <div class="flex justify-between items-center">
+        <a class="text-lg font-medium flex gap-2 items-center"  href="/">
+          <img
+            class="h-12 bg-slate-950 rounded-full"
+            src={logoImage}
+            alt=""
+            width="auto"
+          />
+          <span class="text-gray-800 text-2xl">Astro</span>
+        </a>
+        <div class="lg:hidden">
+          <button
+            class="navbar-burger flex items-center p-3 hover:bg-gray-50 rounded"
+          >
+            <svg
+              class="block h-4 w-4"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <title>Mobile menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+            </svg>
+          </button>
+        </div>
+        <ul
+          class="hidden lg:flex lg:ml-auto lg:mr-12 lg:items-center lg:w-auto lg:space-x-12"
+        >
+          {
+            nav.link.map((link) => (
+              <li>
+                <a class="font-medium text-md" href={link.href}>
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div
+    class="hidden navbar-menu fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50"
+  >
+    <div class="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
+    <nav
+      class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-auto"
+    >
+      <div class="flex items-center mb-8">
+        <a class="mr-auto text-2xl font-medium leading-none flex gap-2 items-center" href="/">
+          <img
+            class="h-7"
+            src={logoImage}
+            alt=""
+            width="auto"
+          />
+          <span class="text-gray-800 text-xl">Astro</span>
+        </a>
+        <button class="navbar-close">
+          <svg
+            class="h-6 w-6 text-gray-500 cursor-pointer hover:text-gray-500"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div>
+        <ul>
+          {
+            nav.link.map((link) => (
+              <li class="mb-1">
+                <a
+                  class="block p-4 text-sm font-medium text-gray-900 hover:bg-gray-50 rounded"
+                  href={link.href}
+                >
+                  {link.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>

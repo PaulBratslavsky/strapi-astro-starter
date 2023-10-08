@@ -1,12 +1,25 @@
 {
   "collectionName": "components_layout_navigations",
   "info": {
-    "displayName": "Navigation"
+    "displayName": "Navigation",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "name": {
       "type": "string"
+    },
+    "logoTitle": {
+      "type": "string",
+      "required": true
+    },
+    "logoImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "link": {
       "displayName": "Link",

@@ -1,9 +1,10 @@
 ---
 import type Global from "../interfaces/global";
 import fetchApi from "../lib/strapi";
+import TopNav from "../components/TopNav.astro";
 
 const global = await fetchApi<Global>({
-  endpoint: "global?populate[topNav][populate][link][populate]=true",
+  endpoint: "global?populate[topNav][populate][logoImage][fields][0]=url&populate[topNav][populate][link][populate]=true",
   wrappedByKey: "data",
 });
 
@@ -22,14 +23,9 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <header>
-      <h1>Logo</h1>
-			<nav>
-				{global.attributes.topNav.link.map((link) => (
-					<a href={link.href}>{link.text}</a>
-				))}
-			</nav>
+    <header class="bg-slate-100">
+			<TopNav nav={global.attributes.topNav} />
     </header>
-    <slot />
+    <main class="container mx-auto py-8"><slot /></main>
   </body>
 </html>
