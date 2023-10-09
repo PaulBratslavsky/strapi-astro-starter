@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { title, description, content, slug, image } = article.attributes;
-const imageUrl = getStrapiMedia(image.data.attributes.url);
+const imageUrl = getStrapiMedia(image.data.attributes.formats.large.url);
 console.log(article);
 ---
 
@@ -42,8 +42,8 @@ console.log(article);
   </div>
   <section class="my-12">
     <div class="mb-8 rounded-xl overflow-hidden">
-      <Media
-        classes="elevation-300 radius-large"
+      <img
+        class="w-full h-auto"
         src={imageUrl}
         alt=""
         loading="lazy"

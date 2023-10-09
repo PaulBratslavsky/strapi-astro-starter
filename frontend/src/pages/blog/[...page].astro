@@ -35,7 +35,9 @@ const { page } = Astro.props
         {
           page.data.map((article: Article) => {
             const { slug, title, description, image } = article.attributes;
-            const imageUrl = getStrapiMedia(image.data.attributes.url);
+            console.log(image.data.attributes.formats.medium.url, "################ image ################")
+
+            const imageUrl = getStrapiMedia(image.data.attributes.formats.medium.url);
 
             return <li>
               <Card

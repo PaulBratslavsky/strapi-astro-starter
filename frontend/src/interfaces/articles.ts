@@ -12,6 +12,17 @@ export default interface Article {
       data: {
         attributes: {
           url: string;
+          formats: {
+            small: {
+              url: string;
+            },
+            medium: {
+              url: string;
+            },
+            large: {
+              url: string;
+            },
+          }
         }
       }
     }
