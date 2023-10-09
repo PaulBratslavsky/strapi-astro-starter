@@ -1,20 +1,21 @@
 ---
-import type Article  from "../../interfaces/articles";
-import { Card, Pagination } from 'accessible-astro-components'
+import type Article from "../../interfaces/articles";
+import { Card, Pagination } from "accessible-astro-components";
 import fetchApi from "../../lib/strapi";
 import { getStrapiMedia } from "../../lib/api-helpers";
-import DefaultLayout from '../../layouts/DefaultLayout.astro'
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
+import { generateCloudinaryURL } from "../../lib/generate-cloudinary-url";
 
-export async function getStaticPaths({ paginate } : { paginate: any }) {
+export async function getStaticPaths({ paginate }: { paginate: any }) {
   const articles = await fetchApi<Article[]>({
     endpoint: "articles?populate=image",
     wrappedByKey: "data",
   });
 
-  return paginate(articles, { pageSize: 6 })
+  return paginate(articles, { pageSize: 6 });
 }
 
-const { page } = Astro.props
+const { page } = Astro.props;
 ---
 
 <DefaultLayout
@@ -25,58 +26,77 @@ const { page } = Astro.props
     <div class="space-content container">
       <h1>Blog</h1>
       <p class="text-2xl">
-        An example of a blog with dynamic content fetched from <a href="https://strapi.io">Strapi</a> a headless CMS. The Accessible Astro Card Component is used here to display all the posts. 
+        An example of a blog with dynamic content fetched from <a
+          href="https://strapi.io">Strapi</a
+        > a headless CMS. The Accessible Astro Card Component is used here to
+        display all the posts.
+      </p>
     </div>
-  </section>
-  <section class="my-12">
-    <div class="container">
-      <p class="text-sm"><em>Post {page.start + 1} through {page.end + 1} of {page.total} total posts</em></p>
-      <ul class="my-3">
-        {
-          page.data.map((article: Article) => {
-            const { slug, title, description, image } = article.attributes;
-            const imageUrl = getStrapiMedia(image.data.attributes.formats.small.url);
+    <section class="my-12">
+      <div class="container">
+        <p class="text-sm">
+          <em
+            >Post {page.start + 1} through {page.end + 1} of {page.total} total
+            posts</em>
+        </p>
+        <ul class="my-3">
+          {
+            page.data.map((article: Article) => {
+              const { slug, title, description, image } = article.attributes;
+              const imageUrl = getStrapiMedia(
+                image.data.attributes.formats.small.url
+              );
 
-            return <li>
-              <Card
-                url={'/blog/' + slug}
-                title={title}
-                img={imageUrl}
-                footer={'postId:' + article.id}
-              >
-                <div class="py-4">{description.slice(0,144) + " ..."}</div>
-              </Card>
-            </li>
-          })
-        }
-      </ul>
-      <div class="mt-12 grid place-content-center">
-        <Pagination
-          firstPage={page.url.prev ? '/blog' : null}
-          previousPage={page.url.prev ? page.url.prev : null}
-          nextPage={page.url.next ? page.url.next : null}
-          lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
-          currentPage={page.currentPage}
-          totalPages={Math.round(page.total / page.size)}
-        />
+              console.log(imageUrl, "############### imageUrl ###################");
+
+              const optimized = generateCloudinaryURL(imageUrl);
+              console.log(optimized, "############### optimized ###################")
+              
+              return (
+                <li>
+                  <Card
+                    url={"/blog/" + slug}
+                    title={title}
+                    img={optimized}
+                    footer={"postId:" + article.id}
+                  >
+                    <div class="py-4">{description.slice(0, 144) + " ..."}</div>
+                  </Card>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <div class="mt-12 grid place-content-center">
+          <Pagination
+            firstPage={page.url.prev ? "/blog" : null}
+            previousPage={page.url.prev ? page.url.prev : null}
+            nextPage={page.url.next ? page.url.next : null}
+            lastPage={page.url.next
+              ? `/blog/${Math.round(page.total / page.size)}`
+              : null}
+            currentPage={page.currentPage}
+            totalPages={Math.round(page.total / page.size)}
+          />
+        </div>
       </div>
-    </div>
+    </section>
   </section>
+
+  <style lang="scss">
+    ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 4rem;
+
+      @media (min-width: 550px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 2rem;
+      }
+
+      @media (min-width: 950px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
 </DefaultLayout>
-
-<style lang="scss">
-  ul {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 4rem;
-
-    @media (min-width: 550px) {
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 2rem;
-    }
-
-    @media (min-width: 950px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-</style>

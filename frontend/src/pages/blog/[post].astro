@@ -1,5 +1,6 @@
 ---
 import type Article from "../../interfaces/articles";
+import { generateCloudinaryURL } from "../../lib/generate-cloudinary-url";
 import {
   Breadcrumbs,
   BreadcrumbsItem,
@@ -27,6 +28,8 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { title, description, content, slug, image } = article.attributes;
 const imageUrl = getStrapiMedia(image.data.attributes.formats.medium.url);
+const optimized = generateCloudinaryURL(imageUrl);
+
 ---
 
 <MarkdownLayout title={title} description={description} url={slug}>
@@ -43,7 +46,7 @@ const imageUrl = getStrapiMedia(image.data.attributes.formats.medium.url);
     <div class="mb-8 rounded-xl overflow-hidden">
       <img
         class="w-full h-auto"
-        src={imageUrl}
+        src={optimized}
         alt=""
         loading="lazy"
       />
