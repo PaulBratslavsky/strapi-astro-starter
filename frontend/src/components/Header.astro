@@ -1,5 +1,6 @@
 ---
 import type { TopNav } from "../interfaces/global.ts";
+import { generateCloudinaryURL } from "../lib/generate-cloudinary-url";
 import { getStrapiMedia } from "../lib/api-helpers";
 
 import Navigation from "../components/Navigation.astro";
@@ -9,12 +10,13 @@ import { Icon } from "astro-icon";
 interface Props { nav: TopNav }
 const { nav } = Astro.props;
 const logoImage = getStrapiMedia(nav.logoImage.data.attributes.url);
+const optimized = generateCloudinaryURL(logoImage);
 
 ---
 
 <header>
   <SkipLinks />
-  <Navigation logoText="Strapi Astro"  logoUrl={logoImage}>
+  <Navigation logoText="Strapi Astro"  logoUrl={optimized}>
     {
       nav.link.map((link) => (
         <li class="menu-item">
