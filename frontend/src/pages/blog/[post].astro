@@ -7,8 +7,7 @@ import {
 } from "accessible-astro-components";
 import { getStrapiMedia } from "../../lib/api-helpers";
 import fetchApi from "../../lib/strapi";
-import marked from "marked";
-
+import { marked } from 'marked';
 import MarkdownLayout from "../../layouts/MarkdownLayout.astro";
 
 export async function getStaticPaths() {
