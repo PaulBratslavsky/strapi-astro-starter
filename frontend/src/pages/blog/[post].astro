@@ -26,8 +26,7 @@ export async function getStaticPaths() {
 
 const { article } = Astro.props;
 const { title, description, content, slug, image } = article.attributes;
-const imageUrl = getStrapiMedia(image.data.attributes.formats.large.url);
-console.log(article);
+const imageUrl = getStrapiMedia(image.data.attributes.formats.medium.url);
 ---
 
 <MarkdownLayout title={title} description={description} url={slug}>
