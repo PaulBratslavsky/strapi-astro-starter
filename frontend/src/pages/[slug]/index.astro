@@ -2,7 +2,7 @@
 import type Page from "../../interfaces/page";
 import fetchApi from "../../lib/strapi";
 
-import Layout from "../../layouts/Default.astro";
+import DefaultLayout from "../../layouts/DefaultLayout.astro";
 
 export async function getStaticPaths() {
   const pages = await fetchApi<Page[]>({
@@ -26,10 +26,9 @@ type Props = Page;
 const page = Astro.props;
 ---
 
-<Layout title={page.attributes.title}>
+<DefaultLayout title={page.attributes.title}>
   <div class="container mx-auto px-4 m-auto">
     <h1>Dynamic Pages</h1>
-    <div>{page.attributes.title}</div>
+    <h2>{page.attributes.title}</h2>
   </div>
-
-</Layout>
+</DefaultLayout>
