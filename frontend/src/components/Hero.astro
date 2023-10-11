@@ -1,10 +1,9 @@
 ---
-import { Icon } from "astro-icon";
-const { src = "/astronaut-hero-img.webp" } = Astro.props;
-
+import OptimizedImage from "./OptimizedImage.astro";
 const { data } = Astro.props;
 console.log(data);
 const { heading, image, link } = data;
+console.log(image.data.attributes.url, "### # # ## # # # # ## # # # ## #")
 
 function linkStyles(type: string) {
   if (type === "PRIMARY") return "button";
@@ -45,7 +44,7 @@ function linkStyles(type: string) {
           }
         </div>
       </div>
-      <img class="hidden lg:block" src={src} alt="" decoding="async" />
+      <OptimizedImage src={image.data.attributes.url} alt="" />
     </div>
   </div>
 </section>

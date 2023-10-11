@@ -8,8 +8,9 @@ import {
 } from "accessible-astro-components";
 import { getStrapiMedia } from "../../lib/api-helpers";
 import fetchApi from "../../lib/strapi";
-import { marked } from 'marked';
+import { marked } from "marked";
 import MarkdownLayout from "../../layouts/MarkdownLayout.astro";
+import OptimizedImage from "../../components/OptimizedImage.astro";
 
 export async function getStaticPaths() {
   const articles = await fetchApi<Article[]>({
@@ -28,8 +29,6 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { title, description, content, slug, image } = article.attributes;
 const imageUrl = getStrapiMedia(image.data.attributes.formats.medium.url);
-const optimized = generateCloudinaryURL(imageUrl);
-
 ---
 
 <MarkdownLayout title={title} description={description} url={slug}>
@@ -43,14 +42,13 @@ const optimized = generateCloudinaryURL(imageUrl);
     </div>
   </div>
   <section class="my-12">
-    <div class="mb-8 rounded-xl overflow-hidden">
-      <img
-        class="w-full h-auto"
-        src={optimized}
-        alt=""
-        loading="lazy"
-      />
-    </div>
+    {
+      imageUrl && (
+        <div class="mb-8 rounded-xl overflow-hidden">
+          <OptimizedImage src={imageUrl} alt={title} />
+        </div>
+      )
+    }
 
     <div class="container">
       <h1>{title}</h1><br />

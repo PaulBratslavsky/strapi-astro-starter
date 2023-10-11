@@ -1,29 +1,17 @@
 ---
-import { Cloudinary } from "@cloudinary/url-gen";
-const cld = new Cloudinary({
-  cloud: {
-    cloudName: import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME,
-  },
-});
-
-const { src, ...props } = Astro.props;
-
-// If the image is not hosted on Cloudinary, don't do anything.
-if (!src.includes("cloudinary")) return src;
-
-let cldSrc = cld.image(src).format("auto").delivery("q_auto");
-// .resize(`c_crop,w_${props.width},h_${props.height},g_face`);
-
-if (src.startsWith("https://")) {
-  cldSrc.setDeliveryType("fetch");
-}
+import { generateCloudinaryURL } from "../lib/generate-cloudinary-url";
 
 interface Props {
   src: string;
   alt: string;
+  class?: string;
   // width: string;
   // height: string;
 }
+
+const { src, alt, ...props } = Astro.props;;
+const optimized = generateCloudinaryURL(src);
+console.log(src, "what is this", optimized)
 ---
 
-<img src={cldSrc.toURL()} loading="lazy" {...props} />
+<img src={optimized} loading="lazy" {...props} />

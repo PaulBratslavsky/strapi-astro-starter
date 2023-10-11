@@ -1,7 +1,7 @@
 import { Cloudinary } from "@cloudinary/url-gen";
 
-export const generateCloudinaryURL = (src: string, props = {}) => {
-  
+export const generateCloudinaryURL = (src: string | null, props = {}) => {
+  if (!src) return null;
   // If the image is not hosted on Cloudinary, don't do anything.
   if (!src.includes('cloudinary')) return src;
 
