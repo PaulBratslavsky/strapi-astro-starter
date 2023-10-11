@@ -801,6 +801,7 @@ export interface ApiPagePage extends Schema.CollectionType {
     description: Attribute.Text;
     slug: Attribute.UID<'api::page.page', 'title'>;
     showInNavbar: Attribute.Boolean & Attribute.DefaultTo<false>;
+    sections: Attribute.DynamicZone<['layout.hero']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

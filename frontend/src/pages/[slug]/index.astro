@@ -24,11 +24,13 @@ export async function getStaticPaths() {
 
 type Props = Page;
 const page = Astro.props;
+
 ---
 
 <DefaultLayout title={page.attributes.title}>
   <div class="container mx-auto px-4 m-auto">
     <h1>Dynamic Pages</h1>
     <h2>{page.attributes.title}</h2>
+    <p>{page.attributes.description}</p>
   </div>
 </DefaultLayout>

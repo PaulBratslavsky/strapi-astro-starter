@@ -1,7 +1,8 @@
 {
   "collectionName": "components_elements_links",
   "info": {
-    "displayName": "Link"
+    "displayName": "Link",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -18,6 +19,13 @@
     "isButton": {
       "type": "boolean",
       "default": false
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "PRIMARY",
+        "SECONDARY"
+      ]
     }
   }
 }

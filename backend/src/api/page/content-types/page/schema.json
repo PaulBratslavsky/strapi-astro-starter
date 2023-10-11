@@ -30,6 +30,12 @@
     "showInNavbar": {
       "type": "boolean",
       "default": false
+    },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "layout.hero"
+      ]
     }
   }
 }

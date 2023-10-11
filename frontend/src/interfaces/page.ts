@@ -4,6 +4,7 @@ export default interface Page {
     title: string;
     description: string;
     slug: string;
+    sections: object[]
     showInNavbar: boolean;
     createdAt: string;
     updatedAt: string;

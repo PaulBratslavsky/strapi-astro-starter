@@ -4,12 +4,28 @@ export interface ElementsLink extends Schema.Component {
   collectionName: 'components_elements_links';
   info: {
     displayName: 'Link';
+    description: '';
   };
   attributes: {
     text: Attribute.String;
     href: Attribute.String;
     isExternal: Attribute.Boolean & Attribute.DefaultTo<false>;
     isButton: Attribute.Boolean & Attribute.DefaultTo<false>;
+    type: Attribute.Enumeration<['PRIMARY', 'SECONDARY']>;
+  };
+}
+
+export interface LayoutHero extends Schema.Component {
+  collectionName: 'components_layout_heroes';
+  info: {
+    displayName: 'Hero';
+    description: '';
+  };
+  attributes: {
+    heading: Attribute.String;
+    text: Attribute.Text;
+    link: Attribute.Component<'elements.link', true>;
+    image: Attribute.Media;
   };
 }
 
@@ -43,6 +59,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'elements.link': ElementsLink;
+      'layout.hero': LayoutHero;
       'layout.metadata': LayoutMetadata;
       'layout.navigation': LayoutNavigation;
     }

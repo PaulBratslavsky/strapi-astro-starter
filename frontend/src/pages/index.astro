@@ -1,13 +1,37 @@
 ---
+import type Page from "../interfaces/page";
+import fetchApi from "../lib/strapi";
+
 import DefaultLayout from "../layouts/DefaultLayout.astro";
 import Hero from "../components/Hero.astro";
 import Feature from "../components/Feature.astro";
 import Counter from "../components/Counter.astro";
 import ContentMedia from "../components/ContentMedia.astro";
+
+const page = await fetchApi<Page[]>({
+  endpoint:
+    "pages?filters[slug]=home-page&populate[sections][populate][image][fields][0]=formats&populate[sections][populate][image][fields][1]=url&populate[sections][populate][link][populate]=true",
+  wrappedByKey: "data",
+});
+
+export function sectionRenderer(section: any, components: any) {
+  switch (section.__component) {
+    case "sections.hero":
+      return components.hero;
+    default:
+      return null;
+  }
+}
+
+console.log(page[0], "############## PAGE ###################");
 ---
 
 <DefaultLayout title="Home">
-  <Hero />
+  {
+    page[0].attributes.sections.map((section: any) => {
+      if (section.__component === "layout.hero") return <Hero data={section} />
+    })
+  }
   <!-- <section class="my-64">
     <div class="container">
       <h2 class="mb-16 text-6xl">Features</h2>
