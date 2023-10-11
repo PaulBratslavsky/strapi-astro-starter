@@ -24,13 +24,16 @@ export function sectionRenderer(section: any, components: any) {
 }
 
 console.log(page[0], "############## PAGE ###################");
+const data = page[0].attributes;
 ---
 
 <DefaultLayout title="Home">
   {
-    page[0].attributes.sections.map((section: any) => {
-      if (section.__component === "layout.hero") return <Hero data={section} />
-    })
+    data.sections &&
+      data.sections.map((section: any) => {
+        if (section.__component === "layout.hero")
+          return <Hero data={section} />;
+      })
   }
   <!-- <section class="my-64">
     <div class="container">
