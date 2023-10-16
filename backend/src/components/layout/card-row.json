@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_layout_card_rows",
+  "info": {
+    "displayName": "Card Row"
+  },
+  "options": {},
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+
+    "card": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.card"
+    }
+  }
+}

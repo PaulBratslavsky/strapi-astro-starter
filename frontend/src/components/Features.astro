@@ -1,0 +1,29 @@
+---
+import Feature from "./Feature.astro";
+
+interface Props {
+  data: any;
+}
+
+const { data } = Astro.props;
+console.log(data, "############### FEATURES ###############");
+---
+
+<section class="my-64">
+  <div class="container">
+    { data.heading && <h2 class="mb-16 text-6xl">{data.heading}</h2>}
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+      {
+        data.card &&
+          data.card.map((card: any) => {
+            const { title, text, mdIconName } = card;
+            return (
+              <Feature icon={mdIconName} title={title}>
+                {text}
+              </Feature>
+            );
+          })
+      }
+    </div>
+  </div>
+</section>

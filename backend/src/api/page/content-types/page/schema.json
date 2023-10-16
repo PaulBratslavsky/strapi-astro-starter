@@ -34,7 +34,8 @@
     "sections": {
       "type": "dynamiczone",
       "components": [
-        "layout.hero"
+        "layout.hero",
+        "layout.card-row"
       ]
     }
   }

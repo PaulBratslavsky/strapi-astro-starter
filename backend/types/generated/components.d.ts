@@ -1,5 +1,18 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
+export interface ElementsCard extends Schema.Component {
+  collectionName: 'components_elements_cards';
+  info: {
+    displayName: 'Card';
+  };
+  attributes: {
+    title: Attribute.String;
+    text: Attribute.Text;
+    mdIconName: Attribute.String;
+    link: Attribute.Component<'elements.link'>;
+  };
+}
+
 export interface ElementsLink extends Schema.Component {
   collectionName: 'components_elements_links';
   info: {
@@ -12,6 +25,18 @@ export interface ElementsLink extends Schema.Component {
     isExternal: Attribute.Boolean & Attribute.DefaultTo<false>;
     isButton: Attribute.Boolean & Attribute.DefaultTo<false>;
     type: Attribute.Enumeration<['PRIMARY', 'SECONDARY']>;
+  };
+}
+
+export interface LayoutCardRow extends Schema.Component {
+  collectionName: 'components_layout_card_rows';
+  info: {
+    displayName: 'Card Row';
+  };
+  attributes: {
+    heading: Attribute.String;
+    text: Attribute.Text;
+    card: Attribute.Component<'elements.card', true>;
   };
 }
 
@@ -58,7 +83,9 @@ export interface LayoutNavigation extends Schema.Component {
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
+      'elements.card': ElementsCard;
       'elements.link': ElementsLink;
+      'layout.card-row': LayoutCardRow;
       'layout.hero': LayoutHero;
       'layout.metadata': LayoutMetadata;
       'layout.navigation': LayoutNavigation;

@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_elements_cards",
+  "info": {
+    "displayName": "Card"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "text"
+    },
+    "mdIconName": {
+      "type": "string"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.link"
+    }
+  }
+}
