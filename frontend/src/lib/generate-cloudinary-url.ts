@@ -1,9 +1,11 @@
 import { Cloudinary } from "@cloudinary/url-gen";
 
+import { getStrapiMedia } from "./api-helpers";
+
 export const generateCloudinaryURL = (src: string | null, props = {}) => {
   if (!src) return null;
   // If the image is not hosted on Cloudinary, don't do anything.
-  if (!src.includes('cloudinary')) return src;
+  if (!src.includes('cloudinary')) return getStrapiMedia(src);
 
   const cld = new Cloudinary({
     cloud: {

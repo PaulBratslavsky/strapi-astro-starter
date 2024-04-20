@@ -11,6 +11,6 @@
     "repo:upstream": "git fetch upstream && git merge upstream/main"
   },
   "dependencies": {
-    "concurrently": "^7.6.0"
+    "concurrently": "^8.2.2"
   }
 }

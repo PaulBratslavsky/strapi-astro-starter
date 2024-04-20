@@ -43,7 +43,7 @@ const {
     />
   </head>
   <body>
-    <Header nav={global.attributes.topNav} />
+    { global && <Header nav={global.attributes.topNav} /> }
     <main id="main-content">
       <slot />
     </main>
