@@ -35,7 +35,9 @@ const page = await fetchApi<Page[]>({
   wrappedByKey: "data",
 });
 
-const data = page[0].attributes;
+if (!page) return Astro.redirect('/404');
+const data = page[0]?.attributes;
+
 ---
 
 <DefaultLayout title="Home">
