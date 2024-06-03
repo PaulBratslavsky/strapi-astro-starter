@@ -50,7 +50,7 @@ export interface LayoutHero extends Schema.Component {
     heading: Attribute.String;
     text: Attribute.Text;
     link: Attribute.Component<'elements.link', true>;
-    image: Attribute.Media;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
   };
 }
 
@@ -62,7 +62,7 @@ export interface LayoutMetadata extends Schema.Component {
   attributes: {
     metaTitle: Attribute.String & Attribute.Required;
     metaDescription: Attribute.Text & Attribute.Required;
-    metaImage: Attribute.Media;
+    metaImage: Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
   };
 }
 
@@ -75,7 +75,7 @@ export interface LayoutNavigation extends Schema.Component {
   attributes: {
     name: Attribute.String;
     logoTitle: Attribute.String & Attribute.Required;
-    logoImage: Attribute.Media & Attribute.Required;
+    logoImage: Attribute.Media<'images'> & Attribute.Required;
     link: Attribute.Component<'elements.link', true>;
   };
 }

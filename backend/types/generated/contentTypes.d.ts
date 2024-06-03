@@ -804,7 +804,7 @@ export interface ApiArticleArticle extends Schema.CollectionType {
     description: Attribute.Text;
     content: Attribute.RichText;
     slug: Attribute.UID<'api::article.article', 'title'> & Attribute.Required;
-    image: Attribute.Media;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     author: Attribute.Relation<
       'api::article.article',
       'manyToOne',
@@ -840,7 +840,7 @@ export interface ApiAuthorAuthor extends Schema.CollectionType {
   };
   attributes: {
     fullName: Attribute.String;
-    image: Attribute.Media;
+    image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     articles: Attribute.Relation<
       'api::author.author',
       'oneToMany',
